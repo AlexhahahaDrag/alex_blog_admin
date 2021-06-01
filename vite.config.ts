@@ -26,7 +26,7 @@ export default defineConfig({
   mode,
   plugins: [vue()],
   base:
-      process.env.NODE_ENV === "production" ? "/manages/" : VITE_PUBLIC_PATH,
+    process.env.NODE_ENV === "production" ? "/manages/" : VITE_PUBLIC_PATH,
   resolve: {
     alias,
   },
@@ -38,7 +38,7 @@ export default defineConfig({
     proxy: {
       // 选项写法
       '/api': {
-        target: 'www.baidu.com',
+        target: 'localhost:30016',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },

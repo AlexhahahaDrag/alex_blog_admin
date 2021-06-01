@@ -38,19 +38,25 @@ export const routes : MenuDataItem[] = [
                 ],
             }
         ]
+    },
+    {
+        name: 'login',
+        path: '/login',
+        meta: {title: '登录页'},
+        component: () => import('@v/login/index.vue'),
     }
 ];
 
-export const staticRoutes: MenuDataItem[] = [
-    {
-        path: '/:pathMatch(.*)',
-        component: () => import('@v/exception/404.vue'),
-    },
-];
+// export const staticRoutes: MenuDataItem[] = [
+//     {
+//         path: '/:pathMatch(.*)',
+//         component: () => import('@v/exception/404.vue'),
+//     },
+// ];
 
 const router = createRouter({
     history: createWebHashHistory(),
-    routes: staticRoutes,
+    routes,
 });
 
 export default router;

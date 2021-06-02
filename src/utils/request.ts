@@ -1,9 +1,9 @@
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios'
-import { notification } from 'ant-design-vue';
 import { ResponseBody } from '@a/typing'
+import { notification } from 'ant-design-vue';
 
 const request = axios.create({
-    baseURL: process.env.VUE_APP_API_BASE_URL,
+    // baseURL: process.env.VUE_APP_API_BASE_URL,
     timeout: 6000,
     headers: { 'X-Custom-Header': 'foobar' }
 });
@@ -44,6 +44,7 @@ request.interceptors.request.use(requestHandler, errorHandler);
 const responseHandler = (
     response: AxiosResponse,
 ): ResponseBody<any> | AxiosResponse<any> | Promise<any> | any => {
+    console.log("response:" + response)
     return response.data;
 }
 // 添加响应拦截器

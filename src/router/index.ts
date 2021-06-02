@@ -36,13 +36,17 @@ export const routes : MenuDataItem[] = [
                         component: () => import('@v/exception/500.vue'),
                     },
                 ],
+            },
+            {
+                name: 'login',
+                path: '/login',
+                component: () => import('@v/login/index.vue'),
             }
         ]
     },
     {
         name: 'login',
         path: '/login',
-        meta: {title: '登录页'},
         component: () => import('@v/login/index.vue'),
     }
 ];

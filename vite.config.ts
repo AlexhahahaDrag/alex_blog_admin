@@ -34,11 +34,12 @@ export default defineConfig({
     // host: 10.10.20.38,
     port: VITE_PORT,
     // port: 10000,
+    open: VITE_OPEN,
     https: false,
     proxy: {
       // 选项写法
       '/api': {
-        target: 'localhost:30016',
+        target: 'http://localhost:30016',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       },

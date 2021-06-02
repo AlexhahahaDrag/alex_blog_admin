@@ -19,6 +19,9 @@ const alias: Record<string, string> = {
 
 const mode = 'development';
 
+const root: string = process.cwd();
+console.log("root:" + JSON.stringify(root));
+
 const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_OPEN } = loadEnv(mode);
 
 // https://vitejs.dev/config/
@@ -31,7 +34,7 @@ export default defineConfig({
     alias,
   },
   server: {
-    // host: 10.10.20.38,
+    host: '10.10.20.38',
     port: VITE_PORT,
     // port: 10000,
     open: VITE_OPEN,

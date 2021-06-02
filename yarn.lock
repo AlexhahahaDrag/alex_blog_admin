@@ -242,6 +242,22 @@ core-js@^3.12.1:
   resolved "http://10.10.30.183:8081/repository/npm-repo-group/core-js/-/core-js-3.13.1.tgz#30303fabd53638892062d8b4e802cac7599e9fb7"
   integrity sha1-MDA/q9U2OIkgYti06ALKx1men7c=
 
+cross-env@^7.0.3:
+  version "7.0.3"
+  resolved "http://10.10.30.183:8081/repository/npm-repo-group/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"
+  integrity sha1-hlJkspZ33AFbqEGJGJZd0jL8VM8=
+  dependencies:
+    cross-spawn "^7.0.1"
+
+cross-spawn@^7.0.1:
+  version "7.0.3"
+  resolved "http://10.10.30.183:8081/repository/npm-repo-group/cross-spawn/-/cross-spawn-7.0.3.tgz#f73a85b9d5d41d045551c177e2882d4ac85728a6"
+  integrity sha1-9zqFudXUHQRVUcF34ogtSshXKKY=
+  dependencies:
+    path-key "^3.1.0"
+    shebang-command "^2.0.0"
+    which "^2.0.1"
+
 cssesc@^3.0.0:
   version "3.0.0"
   resolved "http://10.10.30.183:8081/repository/npm-repo-group/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
@@ -338,6 +354,11 @@ is-plain-object@3.0.1:
   resolved "http://10.10.30.183:8081/repository/npm-repo-group/is-plain-object/-/is-plain-object-3.0.1.tgz#662d92d24c0aa4302407b0d45d21f2251c85f85b"
   integrity sha1-Zi2S0kwKpDAkB7DUXSHyJRyF+Fs=
 
+isexe@^2.0.0:
+  version "2.0.0"
+  resolved "http://10.10.30.183:8081/repository/npm-repo-group/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
+  integrity sha1-6PvzdNxVb/iUehDcsFctYz8s+hA=
+
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
   resolved "http://10.10.30.183:8081/repository/npm-repo-group/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -426,6 +447,11 @@ omit.js@^2.0.0:
   version "2.0.2"
   resolved "http://10.10.30.183:8081/repository/npm-repo-group/omit.js/-/omit.js-2.0.2.tgz#dd9b8436fab947a5f3ff214cb2538631e313ec2f"
   integrity sha1-3ZuENvq5R6Xz/yFMslOGMeMT7C8=
+
+path-key@^3.1.0:
+  version "3.1.1"
+  resolved "http://10.10.30.183:8081/repository/npm-repo-group/path-key/-/path-key-3.1.1.tgz#581f6ade658cbba65a0d3380de7753295054f375"
+  integrity sha1-WB9q3mWMu6ZaDTOA3ndTKVBU83U=
 
 path-parse@^1.0.6:
   version "1.0.7"
@@ -533,6 +559,18 @@ shallow-equal@^1.0.0:
   resolved "http://10.10.30.183:8081/repository/npm-repo-group/shallow-equal/-/shallow-equal-1.2.1.tgz#4c16abfa56043aa20d050324efa68940b0da79da"
   integrity sha1-TBar+lYEOqINBQMk76aJQLDaedo=
 
+shebang-command@^2.0.0:
+  version "2.0.0"
+  resolved "http://10.10.30.183:8081/repository/npm-repo-group/shebang-command/-/shebang-command-2.0.0.tgz#ccd0af4f8835fbdc265b82461aaf0c36663f34ea"
+  integrity sha1-zNCvT4g1+9wmW4JGGq8MNmY/NOo=
+  dependencies:
+    shebang-regex "^3.0.0"
+
+shebang-regex@^3.0.0:
+  version "3.0.0"
+  resolved "http://10.10.30.183:8081/repository/npm-repo-group/shebang-regex/-/shebang-regex-3.0.0.tgz#ae16f1644d873ecad843b0307b143362d4c42172"
+  integrity sha1-rhbxZE2HPsrYQ7AwexQzYtTEIXI=
+
 source-map-js@^0.6.2:
   version "0.6.2"
   resolved "http://10.10.30.183:8081/repository/npm-repo-group/source-map-js/-/source-map-js-0.6.2.tgz#0bb5de631b41cfbda6cfba8bd05a80efdfd2385e"
@@ -582,7 +620,7 @@ vue-router@4:
   dependencies:
     "@vue/devtools-api" "^6.0.0-beta.10"
 
-vue-types@^3.0.0:
+vue-types@^3.0.0, vue-types@^3.0.2:
   version "3.0.2"
   resolved "http://10.10.30.183:8081/repository/npm-repo-group/vue-types/-/vue-types-3.0.2.tgz#ec16e05d412c038262fc1efa4ceb9647e7fb601d"
   integrity sha1-7BbgXUEsA4Ji/B76TOuWR+f7YB0=
@@ -604,6 +642,13 @@ warning@^4.0.0:
   integrity sha1-Fungd+uKhtavfWSqHgX9hbRnjKM=
   dependencies:
     loose-envify "^1.0.0"
+
+which@^2.0.1:
+  version "2.0.2"
+  resolved "http://10.10.30.183:8081/repository/npm-repo-group/which/-/which-2.0.2.tgz#7c6a8dd0a636a0327e10b59c9286eee93f3f51b1"
+  integrity sha1-fGqN0KY2oDJ+ELWckobu6T8/UbE=
+  dependencies:
+    isexe "^2.0.0"
 
 yallist@^3.0.2:
   version "3.1.1"

@@ -20,7 +20,9 @@ const alias: Record<string, string> = {
 const mode = 'development';
 
 const root: string = process.cwd();
-console.log("root:" + JSON.stringify(root));
+
+const { getThemeVariables } = require('ant-design-vue/dist/theme');
+const { additionalData } = require('./themeConfig');
 
 const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_OPEN } = loadEnv(mode);
 
@@ -32,6 +34,20 @@ export default defineConfig({
     process.env.NODE_ENV === "production" ? "/manages/" : VITE_PUBLIC_PATH,
   resolve: {
     alias,
+  },
+  //css样式
+  css: {
+    preprocessorOptions: {
+      less: {
+        javascriptEnabled: true,
+        lessOptions: {
+          modifyVars: { ...getThemeVariables() },
+        },
+      },
+      scss: {
+        additionalData,
+      }
+    }
   },
   server: {
     host: '10.10.20.38',
@@ -47,5 +63,5 @@ export default defineConfig({
         rewrite: (path) => path.replace(/^\/api/, '')
       },
     }
-  }
+  },
 })

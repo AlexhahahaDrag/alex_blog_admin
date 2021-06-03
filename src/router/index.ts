@@ -1,5 +1,5 @@
 import Layout from '@/layouts/index.vue';
-import { createRouter, createWebHashHistory, RouterView } from 'vue-router'
+import { createRouter, createWebHashHistory } from 'vue-router'
 import { MenuDataItem } from './typing'
 import RouteView from '@/layouts/route-view.vue';
 
@@ -50,13 +50,6 @@ export const routes : MenuDataItem[] = [
         component: () => import('@v/login/index.vue'),
     }
 ];
-
-// export const staticRoutes: MenuDataItem[] = [
-//     {
-//         path: '/:pathMatch(.*)',
-//         component: () => import('@v/exception/404.vue'),
-//     },
-// ];
 
 const router = createRouter({
     history: createWebHashHistory(),

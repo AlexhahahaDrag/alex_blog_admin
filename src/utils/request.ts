@@ -26,6 +26,11 @@ const errorHandler = (error: AxiosError): Promise<any> => {
                 description: 'Authorization verification failed',
             });
         }
+    } else {
+        notification.error({
+            message: 'system error',
+            description: '请联系管理员',
+        });
     }
     return Promise.reject(error);
 }

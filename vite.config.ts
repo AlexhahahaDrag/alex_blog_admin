@@ -1,7 +1,8 @@
 import {
   defineConfig
-} from 'vite'
-import vue from '@vitejs/plugin-vue'
+} from 'vite';
+import vue from '@vitejs/plugin-vue';
+import vueJsx from "@vitejs/plugin-vue-jsx";
 import { resolve } from "path";
 import { loadEnv } from "./build/utils";
 
@@ -24,12 +25,13 @@ const root: string = process.cwd();
 const { getThemeVariables } = require('ant-design-vue/dist/theme');
 const { additionalData } = require('./themeConfig');
 
+
 const { VITE_PORT, VITE_PUBLIC_PATH, VITE_PROXY, VITE_OPEN } = loadEnv(mode);
 
 // https://vitejs.dev/config/
 export default defineConfig({
   mode,
-  plugins: [vue()],
+  plugins: [vue(), vueJsx(),],
   base:
     process.env.NODE_ENV === "production" ? "/manages/" : VITE_PUBLIC_PATH,
   resolve: {
@@ -45,7 +47,7 @@ export default defineConfig({
         },
       },
       scss: {
-        additionalData,
+        // additionalData,
       }
     }
   },

@@ -12,6 +12,7 @@ import {
 } from 'ant-design-vue';
 //引入ant-design-vue样式
 import 'ant-design-vue/dist/antd.less';
-import VueParticles from 'vue-particles';
 
-createApp(App).use(router).use(Form).use(Button).use(Input).use(VueParticles).mount('#app');
+import Particles from "particles.vue3";
+
+createApp(App).use(router).use(Form).use(Button).use(Input).use(Particles).mount('#app');

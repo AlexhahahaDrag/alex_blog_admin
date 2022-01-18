@@ -1,30 +1,29 @@
 import request from '@u/request';
-export type LoginType = 'account' | 'telephone';
+import qs from 'qs';
+
+// 将请求数据转换为form-data格式
+// 这里不用qs，用FormData也可以，不赘述
 
 interface LoginParams {
-    type: LoginType;
-    username: string;
-    password: string;
+  isRememberMe: boolean;
+  username: string;
+  password: string;
 }
 
-interface Params {
-    [key: string]: any;
-}
-
-export interface RequestParam {
-    resultAsMap: boolean;
-    variables: Params;
-}
-
-export const resetParams = (params: Params): RequestParam => {
-    return {
-        resultAsMap: true,
-        variables: {
-            ...params,
-        },
-    };
+function transParams (data) {
+  let params = new URLSearchParams();
+  for (let item in data) {
+    params.append(item, data['' + item + '']);
+  }
+  return params;
+  // console.log(qs.stringify(data));
+  // return qs.stringify(data); 
 };
 
-export async function login(params: LoginParams): Promise<any> {
-    return request.post('/api/authc/login', resetParams(params));
+interface Params {
+  [key: string]: any;
+}
+
+export async function login(params: LoginParams) {
+  return request.post('/api/auth/login', transParams(params));
 }

@@ -1,4 +1,4 @@
-import Layout from '@/layouts/index.vue';
+import Layout from '@/layout/index.vue';
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { MenuDataItem } from './typing'
 

@@ -5,8 +5,9 @@ import { notification } from 'ant-design-vue';
 const request = axios.create({
     // baseURL: process.env.VUE_APP_API_BASE_URL,
     timeout: 6000,
-    headers: { 'X-Custom-Header': 'foobar' }
 });
+
+axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
 //异常拦截处理器
 const errorHandler = (error: AxiosError): Promise<any> => {

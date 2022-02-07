@@ -7,7 +7,7 @@ import { resolve } from "path";
 import { loadEnv } from "./build/utils";
 
 const pathResolve = (dir: string): any => {
-  return resolve(__dirname, ".", dir);
+  return resolve(__dirname, "./", dir);
 };
 
 //設置別名
@@ -52,7 +52,7 @@ export default defineConfig({
     }
   },
   server: {
-    host: '10.10.20.38',
+    // host: '10.10.20.38',
     port: VITE_PORT,
     // port: 10000,
     open: VITE_OPEN,

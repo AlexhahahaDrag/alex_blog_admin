@@ -1,5 +1,12 @@
 <template>
   <div class="login-container">
+    <!--引入粒子特效-->
+    <Particles
+      id="tsparticles"
+      :particlesInit="particlesInit"
+      :particlesLoaded="particlesLoaded"
+      :options="options"
+    />
     <a-form
       ref="formRef"
       :model="loginForm"
@@ -23,29 +30,11 @@
         />
       </a-form-item>
       <a-form-item>
-        <a-button type="primary" @click="onSubmit" style="width:100%;">登录</a-button>
+        <a-button type="primary" @click="onSubmit" style="width: 100%"
+          >登录</a-button
+        >
       </a-form-item>
     </a-form>
-    <!--引入粒子特效-->
-    <!-- <vue-particles
-      color="#fff"
-      :particleOpacity="0.7"
-      :particlesNumber="60"
-      shapeType="circle"
-      :particleSize="4"
-      linesColor="#fff"
-      :linesWidth="1"
-      :lineLinked="true"
-      :lineOpacity="0.4"
-      :linesDistance="150"
-      :moveSpeed="2"
-      :hoverEffect="true"
-      hoverMode="grab"
-      :clickEffect="true"
-      clickMode="push"
-      class="lizi"
-    >
-    </vue-particles> -->
   </div>
 </template>
 
@@ -53,9 +42,8 @@
 <script lang="ts">
 import { defineComponent, reactive, UnwrapRef, ref } from "vue";
 import { login, LoginParams } from "@a/login.ts";
-import { notification } from "ant-design-vue";
 import { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
-
+import { useRoute, useRouter } from "vue-router";
 interface loginForm {
   username: string;
   password: string;
@@ -63,6 +51,8 @@ interface loginForm {
 export default defineComponent({
   setup() {
     const formRef = ref();
+    const route = useRoute();
+    const router = useRouter();
     const loginForm: UnwrapRef<loginForm> = reactive({
       username: "",
       password: "",
@@ -83,22 +73,106 @@ export default defineComponent({
             password: loginForm.password,
           };
           login(param).then((res) => {
+            if (res.code === "success") {
+              console.log(route);
+              router.push("/");
+            } else {
+            }
             // notification
-            notification.error({
-              message: "Forbidden",
-              description: (res && res.message) || "login fail",
-            });
+            // notification.error({
+            //   message: "Forbidden",
+            //   description: (res && res.message) || "login fail",
+            // });
           });
         })
         .catch((error: ValidateErrorEntity<loginForm>) => {
           console.log("error", error);
         });
     };
+
+    const options = {
+      background: {
+        color: {
+          value: "#000", //粒子颜色
+        },
+      },
+      fpsLimit: 60,
+      interactivity: {
+        events: {
+          onClick: {
+            enable: true,
+            mode: "push", //可用的click模式有: "push", "remove", "repulse", "bubble"。
+          },
+          onHover: {
+            enable: true,
+            mode: "grab", //可用的hover模式有: "grab", "repulse", "bubble"。
+          },
+          resize: true,
+        },
+        modes: {
+          bubble: {
+            distance: 400,
+            duration: 2,
+            opacity: 0.8,
+            size: 40,
+          },
+          push: {
+            quantity: 4,
+          },
+          repulse: {
+            distance: 200,
+            duration: 0.4,
+          },
+        },
+      },
+      particles: {
+        color: {
+          value: "#ffffff",
+        },
+        links: {
+          color: "#ffffff", //'#dedede'。线条颜色。
+          distance: 150, //线条长度
+          enable: true, //是否有线条
+          opacity: 0.5, //线条透明度。
+          width: 1, //线条宽度。
+        },
+        collisions: {
+          enable: false,
+        },
+        move: {
+          direction: "none",
+          enable: true,
+          outMode: "bounce",
+          random: false,
+          speed: 2, //粒子运动速度。
+          straight: false,
+        },
+        number: {
+          density: {
+            enable: true,
+            area: 800,
+          },
+          value: 80, //粒子数量。
+        },
+        opacity: {
+          value: 0.5, //粒子透明度。
+        },
+        shape: {
+          type: "circle", //可用的粒子外观类型有："circle","edge","triangle", "polygon","star"
+        },
+        size: {
+          random: true,
+          value: 5,
+        },
+      },
+      detectRetina: true,
+    };
     return {
       formRef,
       loginForm,
       onSubmit,
       loginRules,
+      options,
     };
   },
 });

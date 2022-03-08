@@ -39,8 +39,8 @@
 </template>
 
 
-<script lang="ts">
-import { defineComponent, reactive, UnwrapRef, ref } from "vue";
+<script setup lang="ts">
+import { reactive, UnwrapRef, ref } from "vue";
 import { login, LoginParams } from "@a/login.ts";
 import { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import { useRoute, useRouter } from "vue-router";
@@ -48,134 +48,123 @@ interface loginForm {
   username: string;
   password: string;
 }
-export default defineComponent({
-  setup() {
-    const formRef = ref();
-    const route = useRoute();
-    const router = useRouter();
-    const loginForm: UnwrapRef<loginForm> = reactive({
-      username: "",
-      password: "",
-    });
-    const loginRules = {
-      password: [
-        { required: true, message: "请输入密码", trigger: "blur" },
-        { min: 5, message: "密码最少五位", trigger: "blur" },
-      ],
-    };
-    const onSubmit = () => {
-      formRef.value
-        .validate()
-        .then(() => {
-          let param: LoginParams = {
-            type: "account",
-            username: loginForm.username,
-            password: loginForm.password,
-          };
-          login(param).then((res) => {
-            if (res.code === "success") {
-              console.log(route);
-              router.push("/");
-            } else {
-            }
-            // notification
-            // notification.error({
-            //   message: "Forbidden",
-            //   description: (res && res.message) || "login fail",
-            // });
-          });
-        })
-        .catch((error: ValidateErrorEntity<loginForm>) => {
-          console.log("error", error);
-        });
-    };
-
-    const options = {
-      background: {
-        color: {
-          value: "#000", //粒子颜色
-        },
-      },
-      fpsLimit: 60,
-      interactivity: {
-        events: {
-          onClick: {
-            enable: true,
-            mode: "push", //可用的click模式有: "push", "remove", "repulse", "bubble"。
-          },
-          onHover: {
-            enable: true,
-            mode: "grab", //可用的hover模式有: "grab", "repulse", "bubble"。
-          },
-          resize: true,
-        },
-        modes: {
-          bubble: {
-            distance: 400,
-            duration: 2,
-            opacity: 0.8,
-            size: 40,
-          },
-          push: {
-            quantity: 4,
-          },
-          repulse: {
-            distance: 200,
-            duration: 0.4,
-          },
-        },
-      },
-      particles: {
-        color: {
-          value: "#ffffff",
-        },
-        links: {
-          color: "#ffffff", //'#dedede'。线条颜色。
-          distance: 150, //线条长度
-          enable: true, //是否有线条
-          opacity: 0.5, //线条透明度。
-          width: 1, //线条宽度。
-        },
-        collisions: {
-          enable: false,
-        },
-        move: {
-          direction: "none",
-          enable: true,
-          outMode: "bounce",
-          random: false,
-          speed: 2, //粒子运动速度。
-          straight: false,
-        },
-        number: {
-          density: {
-            enable: true,
-            area: 800,
-          },
-          value: 80, //粒子数量。
-        },
-        opacity: {
-          value: 0.5, //粒子透明度。
-        },
-        shape: {
-          type: "circle", //可用的粒子外观类型有："circle","edge","triangle", "polygon","star"
-        },
-        size: {
-          random: true,
-          value: 5,
-        },
-      },
-      detectRetina: true,
-    };
-    return {
-      formRef,
-      loginForm,
-      onSubmit,
-      loginRules,
-      options,
-    };
-  },
+const formRef = ref();
+const route = useRoute();
+const router = useRouter();
+const loginForm: UnwrapRef<loginForm> = reactive({
+  username: "",
+  password: "",
 });
+const loginRules = {
+  password: [
+    { required: true, message: "请输入密码", trigger: "blur" },
+    { min: 5, message: "密码最少五位", trigger: "blur" },
+  ],
+};
+const onSubmit = () => {
+  formRef.value
+    .validate()
+    .then(() => {
+      let param: LoginParams = {
+        type: "account",
+        username: loginForm.username,
+        password: loginForm.password,
+      };
+      login(param).then((res) => {
+        if (res.code === "success") {
+          console.log(route);
+          router.push("/");
+        } else {
+        }
+        // notification
+        // notification.error({
+        //   message: "Forbidden",
+        //   description: (res && res.message) || "login fail",
+        // });
+      });
+    })
+    .catch((error: ValidateErrorEntity<loginForm>) => {
+      console.log("error", error);
+    });
+};
+
+const options = {
+  background: {
+    color: {
+      value: "#000", //粒子颜色
+    },
+  },
+  fpsLimit: 60,
+  interactivity: {
+    events: {
+      onClick: {
+        enable: true,
+        mode: "push", //可用的click模式有: "push", "remove", "repulse", "bubble"。
+      },
+      onHover: {
+        enable: true,
+        mode: "grab", //可用的hover模式有: "grab", "repulse", "bubble"。
+      },
+      resize: true,
+    },
+    modes: {
+      bubble: {
+        distance: 400,
+        duration: 2,
+        opacity: 0.8,
+        size: 40,
+      },
+      push: {
+        quantity: 4,
+      },
+      repulse: {
+        distance: 200,
+        duration: 0.4,
+      },
+    },
+  },
+  particles: {
+    color: {
+      value: "#ffffff",
+    },
+    links: {
+      color: "#ffffff", //'#dedede'。线条颜色。
+      distance: 150, //线条长度
+      enable: true, //是否有线条
+      opacity: 0.5, //线条透明度。
+      width: 1, //线条宽度。
+    },
+    collisions: {
+      enable: false,
+    },
+    move: {
+      direction: "none",
+      enable: true,
+      outMode: "bounce",
+      random: false,
+      speed: 2, //粒子运动速度。
+      straight: false,
+    },
+    number: {
+      density: {
+        enable: true,
+        area: 800,
+      },
+      value: 80, //粒子数量。
+    },
+    opacity: {
+      value: 0.5, //粒子透明度。
+    },
+    shape: {
+      type: "circle", //可用的粒子外观类型有："circle","edge","triangle", "polygon","star"
+    },
+    size: {
+      random: true,
+      value: 5,
+    },
+  },
+  detectRetina: true,
+};
 </script>
 
 <style rel="stylesheet/scss" lang="scss">

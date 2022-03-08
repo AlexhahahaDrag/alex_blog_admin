@@ -7,5 +7,6 @@ import router from "./router";
 //引入ant-design-vue样式
 import 'ant-design-vue/dist/antd.less';
 import Particles from 'particles.vue3';
+import store from 'vuex'
  
-createApp(App).use(router).use(Particles).mount('#app');
+createApp(App).use(router).use(Particles).use(store).mount('#app');

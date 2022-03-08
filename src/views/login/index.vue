@@ -41,9 +41,10 @@
 
 <script setup lang="ts">
 import { reactive, UnwrapRef, ref } from "vue";
-import { login, LoginParams } from "@a/login.ts";
+import { login, LoginParams } from "@/api/login";
 import { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
 import { useRoute, useRouter } from "vue-router";
+
 interface loginForm {
   username: string;
   password: string;
@@ -55,12 +56,14 @@ const loginForm: UnwrapRef<loginForm> = reactive({
   username: "",
   password: "",
 });
+
 const loginRules = {
   password: [
     { required: true, message: "请输入密码", trigger: "blur" },
     { min: 5, message: "密码最少五位", trigger: "blur" },
   ],
 };
+
 const onSubmit = () => {
   formRef.value
     .validate()

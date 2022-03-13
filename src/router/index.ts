@@ -9,6 +9,7 @@ export const routes: MenuDataItem[] = [
         redirect: '/dashboard',
         component: Layout,
         meta: {
+            title: '仪表盘',
             hiedInMenu: false,
         },
         children: [
@@ -42,13 +43,13 @@ export const routes: MenuDataItem[] = [
         meta: { title: '博客管理', icon: 'edit', hiedInMenu: false, },
         children: [
             {
-                path: 'blog',
+                path: '/blog',
                 name: '博客管理',
                 component: () => import('@v/blog/blog/index.vue'),
                 meta: { title: '博客管理', icon: 'edit', hiedInMenu: false, }
             },
             {
-                path: 'blogTag',
+                path: '/blogTag',
                 name: '标签管理',
                 component: () => import('@/views/blog/blogTag/index.vue'),
                 meta: { title: '标签管理', icon: 'tag', hiedInMenu: false, }

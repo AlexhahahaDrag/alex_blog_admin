@@ -1,13 +1,12 @@
-import request from '@u/request';
-import qs from 'qs';
-
+import request from '@/utils/request';
 // 将请求数据转换为form-data格式
 // 这里不用qs，用FormData也可以，不赘述
 
-interface LoginParams {
-  isRememberMe: boolean;
+export interface LoginParams {
+  isRememberMe?: boolean;
   username: string;
   password: string;
+  type?: string;
 }
 
 function transParams (data) {

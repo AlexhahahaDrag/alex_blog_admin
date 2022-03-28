@@ -3,8 +3,6 @@
     <!--引入粒子特效-->
     <Particles
       id="tsparticles"
-      :particlesInit="particlesInit"
-      :particlesLoaded="particlesLoaded"
       :options="options"
     />
     <a-form

@@ -7,11 +7,15 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute, useRouter } from "vue-router";
-import { algorithm } from "@/utils/algorithm/index.ts";
+import { ref } from "vue";
 import Menu from "./menu.vue";
-import { computed } from "vue";
+import { MenuDataItem } from "@/router/typing";
+interface Props {
+  routes: MenuDataItem[];
+}
+const props = withDefaults(defineProps<Props>(), {
+  routes: () => [],
+});
 
-const router = useRouter().options.routes;
-const routes = computed(() => algorithm.increaseIndexes(router));
+const routes = ref<MenuDataItem[]>(props.routes);
 </script>

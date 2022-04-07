@@ -1,10 +1,10 @@
 <template>
   <a-layout style="min-height: 100vh">
     <a-layout-sider v-model:collapsed="state.collapsed" collapsible>
-      <Navbar></Navbar>
+      <Navbar :routes="routes"></Navbar>
     </a-layout-sider>
     <a-layout>
-      <Breadcrumb></Breadcrumb>
+      <Breadcrumb :routes="routes"></Breadcrumb>
       <!-- <a-layout-header style="background: #fff; padding: 0" /> -->
       <a-layout-content style="margin: 0 16px">
         <router-view />
@@ -17,11 +17,15 @@
   </a-layout>
 </template>
 <script setup lang="ts">
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import Navbar from "./components/navbar/index.vue";
 import Breadcrumb from "./components/breadcrumb/index.vue";
 import { watch } from "vue";
+import { useRouter } from "vue-router";
+import { algorithm } from "@/utils/algorithm/index.ts";
 
+const router = useRouter().options.routes;
+const routes = computed(() => algorithm.increaseIndexes(router));
 let state = ref({
   collapsed: false,
   selectedKeys: ["1"],
@@ -35,7 +39,6 @@ watch(
     state.value.preOpenKeys = oldVal;
   }
 );
-
 </script>
 <style>
 #components-layout-demo-side .logo {

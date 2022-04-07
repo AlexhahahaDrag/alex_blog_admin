@@ -5,6 +5,7 @@ import { resolve } from "path";
 import { loadEnv } from "./build/utils.ts";
 import { AntDesignVueResolver } from "unplugin-vue-components/resolvers";
 import Components from 'unplugin-vue-components/vite'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
 
 const pathResolve = (dir: string): any => {
   return resolve(__dirname, "./", dir);
@@ -38,6 +39,12 @@ export default defineConfig({
         // 默认从 /src/components 目录下自动查找组件
         AntDesignVueResolver(),
       ],
+    }),
+    createSvgIconsPlugin({
+      iconDirs: [pathResolve('src/svg/icon')],
+      symbolId: 'icon-[dir]-[name]',
+      inject: 'body-last',//body-last|body-first默认body-last
+      customDomId: '__svg__icons__dom__', //默认__svg__icons__dom__
     }),
   ],
   base: process.env.NODE_ENV === "production" ? "/manages/" : VITE_PUBLIC_PATH,

@@ -8,5 +8,6 @@ import router from "./router";
 import 'ant-design-vue/dist/antd.less';
 import Particles from 'particles.vue3';
 import store from 'vuex'
- 
+import 'virtual:svg-icons-register'
+
 createApp(App).use(router).use(Particles).use(store).mount('#app');

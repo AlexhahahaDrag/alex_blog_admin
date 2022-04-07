@@ -5,7 +5,7 @@
       <a-sub-menu>
         <template #icon>
           <PieChartOutlined />
-           {{ route.icon }} 
+           {{ route.meta.icon }} 
         </template>
         <template #title>{{ route.meta ? route.meta.title : "未知" }}</template>
         <Menu :routes="route.children"></Menu>
@@ -22,13 +22,12 @@
   </template>
 </template>
 <script setup lang="ts">
-import { MenuDataItem } from "@/router/typing";
 import { ref } from "vue";
 import {  PieChartOutlined } from "@ant-design/icons-vue";
+import { MenuDataItem } from "@/router/typing";
 interface Props {
   routes: MenuDataItem[];
 }
-
 const props = withDefaults(defineProps<Props>(), {
   routes: () => [],
 });

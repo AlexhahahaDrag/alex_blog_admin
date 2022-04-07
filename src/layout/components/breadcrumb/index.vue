@@ -1,10 +1,41 @@
 <template>
   <a-menu class="navbar">
-    <a-breadcrumb style="margin: 16px 0">
-      <a-breadcrumb-item>User11</a-breadcrumb-item>
-      <a-breadcrumb-item>Bill22</a-breadcrumb-item>
+    <a-breadcrumb :routes="routes" class="hamburger-container">
+      <template #itemRender="{ route, paths }">
+        <span v-if="routes.indexOf(route) === routes.length - 1">
+          {{ route.meta && route.meta.title }}
+        </span>
+        <router-link v-else :to="`${basePath}/${paths.join('')}`">
+          {{ route.meta && route.meta.title }}
+        </router-link>
+      </template>
     </a-breadcrumb>
+    {{ $route.path }}
     <div class="right-menu">
+      <a-tooltip placement="bottom" color="dark">
+        <template #title>
+          <span>Gitee源码</span>
+        </template>
+        <git></git>
+      </a-tooltip>
+      <a-tooltip placement="bottom" color="green">
+        <template #title>
+          <span>prompt text</span>
+        </template>
+        <a-button>Bottom</a-button>
+      </a-tooltip>
+      <a-tooltip placement="bottom">
+        <template #title>
+          <span>文档地址</span>
+        </template>
+        <a-button>文档地址</a-button>
+      </a-tooltip>
+      <a-tooltip placement="bottom">
+        <template #title>
+          <span>全屏</span>
+        </template>
+        <a-button>全屏</a-button>
+      </a-tooltip>
       <a-dropdown class="avatar-container" :trigger="['click']">
         <a class="ant-dropdown-link" @click.prevent>
           Click me
@@ -22,27 +53,30 @@
   </a-menu>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
+<script setup lang="ts">
+import { ref } from "vue";
+import { MenuDataItem } from "@/router/typing";
+import git from "@/views/alexblog/git/index.vue";
 
-export default defineComponent({
-  setup() {
-    const aboutMe = function () {
-      console.log("aboutMe");
-    };
-    const showLog = function () {
-      console.log("showLog");
-    };
-    const logout = function () {
-      console.log("logout");
-    };
-    return {
-      aboutMe,
-      showLog,
-      logout,
-    };
-  },
+const aboutMe = function () {
+  console.log("aboutMe");
+};
+const showLog = function () {
+  console.log("showLog");
+};
+const logout = function () {
+  console.log("logout");
+};
+
+interface Props {
+  routes: MenuDataItem[];
+}
+const props = withDefaults(defineProps<Props>(), {
+  routes: () => [],
 });
+
+const routes = ref<MenuDataItem[]>(props.routes);
+let basePath = "";
 </script>
 
 <style lang="less" scoped>

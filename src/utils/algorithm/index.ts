@@ -6,10 +6,8 @@ class algorithmProxy implements ProxyAlgorithm {
     constructor() { }
 
     public increaseIndexes<T>(val: T[]): T[] {
-        console.log("test")
         return Object.keys(val)
             .map((v) => {
-                console.log("v:" + v);
                 return {
                     ...val[v],
                     key: v,

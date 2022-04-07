@@ -20,6 +20,7 @@ declare module 'vue' {
     AMenuItemGroup: typeof import('ant-design-vue/es')['MenuItemGroup']
     ASubMenu: typeof import('ant-design-vue/es')['SubMenu']
     ASwitch: typeof import('ant-design-vue/es')['Switch']
+    ATooltip: typeof import('ant-design-vue/es')['Tooltip']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
   }
 }

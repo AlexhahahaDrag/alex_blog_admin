@@ -16,25 +16,19 @@
         <template #title>
           <span>Gitee源码</span>
         </template>
-        <git></git>
-      </a-tooltip>
-      <a-tooltip placement="bottom" color="green">
-        <template #title>
-          <span>prompt text</span>
-        </template>
-        <a-button>Bottom</a-button>
+        <alexGit></alexGit>
       </a-tooltip>
       <a-tooltip placement="bottom">
         <template #title>
           <span>文档地址</span>
         </template>
-        <a-button>文档地址</a-button>
+        <alexDoc></alexDoc>
       </a-tooltip>
       <a-tooltip placement="bottom">
         <template #title>
           <span>全屏</span>
         </template>
-        <a-button>全屏</a-button>
+        <FullScreen></FullScreen>
       </a-tooltip>
       <a-dropdown class="avatar-container" :trigger="['click']">
         <a class="ant-dropdown-link" @click.prevent>
@@ -56,7 +50,9 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { MenuDataItem } from "@/router/typing";
-import git from "@/views/alexblog/git/index.vue";
+import alexGit from "@/views/alexblog/alexGit/index.vue";
+import alexDoc from "@/views/alexblog/alexDoc/index.vue";
+import FullScreen from "@/views/alexblog/fullScreen/index.vue";
 
 const aboutMe = function () {
   console.log("aboutMe");

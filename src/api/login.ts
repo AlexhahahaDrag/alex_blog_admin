@@ -15,8 +15,6 @@ function transParams (data) {
     params.append(item, data['' + item + '']);
   }
   return params;
-  // console.log(qs.stringify(data));
-  // return qs.stringify(data); 
 };
 
 interface Params {

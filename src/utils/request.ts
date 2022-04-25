@@ -9,6 +9,7 @@ const request = axios.create({
 
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded';
 
+
 //异常拦截处理器
 const errorHandler = (error: AxiosError): Promise<any> => {
     if (error.response) {
@@ -40,6 +41,10 @@ const errorHandler = (error: AxiosError): Promise<any> => {
 const requestHandler = (
     config: AxiosRequestConfig,
 ): AxiosRequestConfig | Promise<AxiosRequestConfig> => {
+    const token = "bearer_eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhZG1pbklkIjoiNDE2MzUyNDRiNzY0OTU1MThkMWRjODNiMDkwYzM3ODAiLCJyb2xlIjoi6LaF57qn566h55CG5ZGYIiwiY3JlYXRlX3RpbWUiOnsibW9udGgiOiJBUFJJTCIsInllYXIiOjIwMjIsImRheU9mTW9udGgiOjI1LCJob3VyIjoyMSwibWludXRlIjoyNSwibW9udGhWYWx1ZSI6NCwibmFubyI6NjgwMDAwMDAwLCJzZWNvbmQiOjQ1LCJkYXlPZldlZWsiOiJNT05EQVkiLCJkYXlPZlllYXIiOjExNSwiY2hyb25vbG9neSI6eyJpZCI6IklTTyIsImNhbGVuZGFyVHlwZSI6Imlzbzg2MDEifX0sInN1YiI6ImFsZXgiLCJpc3MiOiJtb2d1YmxvZyIsImF1ZCI6IjA5OGY2YmNkNDYyMWQzNzNjYWRlNGU4MzI2MjdiNGY2IiwiZXhwIjoxNjUxMTUyMzQ1fQ.1pZjAjHfMpRdeXowIT4zcziektj7SjwHXeDQKjrKllE";
+    if(token) {
+        config.headers[ 'Authorization' ] = token
+    }
     return config;
 }
 

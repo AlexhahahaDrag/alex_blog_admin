@@ -17,6 +17,7 @@
     "less-loader": "^9.0.0",
     "mitt": "^3.0.0",
     "particles.vue3": "^1.22.0",
+    "pinia": "^2.0.13",
     "qs": "^6.10.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue": "^3.2.31",

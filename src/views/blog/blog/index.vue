@@ -111,6 +111,8 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { getBlogList } from "@/api/blog";
+import { useUserStore } from "@/store/modules/user/user";
+
 interface search {
   title?: string;
   sortName?: string;
@@ -122,6 +124,10 @@ const handleChange = (value: string) => {
   console.log(searchInfo.value.sortName);
 };
 
+  const userStore = useUserStore();
+  const token = userStore.getToken;
+  console.log(token);
+  debugger;
 const options = [...Array(25)].map((_, i) => ({
   value: (i + 10).toString(36) + (i + 1),
 }));

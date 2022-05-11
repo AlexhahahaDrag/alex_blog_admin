@@ -1,16 +1,8 @@
 <template>
   <div class="login-container">
     <!--引入粒子特效-->
-    <Particles
-      id="tsparticles"
-      :options="options"
-    />
-    <a-form
-      ref="formRef"
-      :model="loginForm"
-      class="login-form"
-      :rules="loginRules"
-    >
+    <Particles id="tsparticles" :options="options" />
+    <a-form ref="formRef" :model="loginForm" class="login-form" :rules="loginRules">
       <h3 class="title">alex博客后台管理系统</h3>
       <a-form-item name="username">
         <a-input
@@ -28,28 +20,26 @@
         />
       </a-form-item>
       <a-form-item>
-        <a-button type="primary" @click="onSubmit" style="width: 100%"
-          >登录</a-button
-        >
+        <a-button type="primary" @click="onSubmit" style="width: 100%">登录</a-button>
       </a-form-item>
     </a-form>
   </div>
 </template>
 
-
 <script setup lang="ts">
 import { reactive, UnwrapRef, ref } from "vue";
-import { login, LoginParams } from "@/api/login";
+import { LoginParams } from "@/api/login";
 import { ValidateErrorEntity } from "ant-design-vue/es/form/interface";
-import { useRoute, useRouter } from "vue-router";
+import { useRouter } from "vue-router";
+import { useUserStore } from "@/store/modules/user/user";
 
 interface loginForm {
   username: string;
   password: string;
 }
 const formRef = ref();
-const route = useRoute();
 const router = useRouter();
+const userStore = useUserStore();
 const loginForm: UnwrapRef<loginForm> = reactive({
   username: "",
   password: "",
@@ -65,24 +55,16 @@ const loginRules = {
 const onSubmit = () => {
   formRef.value
     .validate()
-    .then(() => {
+    .then(async () => {
       let param: LoginParams = {
         type: "account",
         username: loginForm.username,
         password: loginForm.password,
       };
-      login(param).then((res) => {
-        if (res.code === "success") {
-          console.log(route);
-          router.push("/");
-        } else {
-        }
-        // notification
-        // notification.error({
-        //   message: "Forbidden",
-        //   description: (res && res.message) || "login fail",
-        // });
-      });
+      const res = await userStore.login(param);
+      if (res) {
+        router.push("/");
+      }
     })
     .catch((error: ValidateErrorEntity<loginForm>) => {
       console.log("error", error);

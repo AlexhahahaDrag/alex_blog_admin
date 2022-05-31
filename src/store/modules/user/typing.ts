@@ -1,3 +1,4 @@
+import { Nullable } from "@/types/global";
 import { RoleEnum } from "@/types/role_enum";
 import { UserInfo } from "@/types/store";
 

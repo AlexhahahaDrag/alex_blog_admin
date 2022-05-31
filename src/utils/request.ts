@@ -1,6 +1,6 @@
 import { useUserStore } from "@/store/modules/user/user";
 import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from "axios";
-import { ResponseBody } from "@a/typing";
+import { ResponseBody } from "@/api/typing";
 import { notification } from "ant-design-vue";
 
 const request = axios.create({
@@ -55,11 +55,11 @@ request.interceptors.request.use(requestHandler, errorHandler);
 
 //响应拦截器
 const responseHandler = (
-  response: AxiosResponse
+  response: AxiosResponse<any>
 ): ResponseBody<any> | AxiosResponse<any> | Promise<any> | any => {
-  console.log("response:" + response);
   return response.data;
 };
+
 // 添加响应拦截器
 request.interceptors.response.use(responseHandler, errorHandler);
 

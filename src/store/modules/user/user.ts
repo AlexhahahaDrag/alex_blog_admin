@@ -56,7 +56,6 @@ export const useUserStore = defineStore({
         const { token, admin } = data.data;
         // save token
         this.setToken(token);
-        debugger;
         return admin;
       } catch (error) {
         return Promise.reject(error);

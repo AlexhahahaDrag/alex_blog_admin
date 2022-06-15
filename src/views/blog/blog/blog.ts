@@ -6,9 +6,9 @@ export interface search {
   currentPage?: number;
   pageSize?: number;
   isPublish?: string;
-  level?: number;
+  level?: string;
   tagId?: string;
-  type?: number;
+  type?: string;
 }
 
 export interface blog {
@@ -37,7 +37,15 @@ export const levelInfo = [
   { value: "0", label: "普通" },
 ];
 
-const colorInfo = ["pink", "red"];
+export const colorInfo = [
+  "pink",
+  "red",
+  "orange",
+  "green",
+  "cyan",
+  "blue",
+  "purple",
+];
 
 export const typeInfo = [
   { value: "", label: "请选择" },
@@ -87,14 +95,14 @@ export const columns = [
   },
   {
     title: "分类",
-    dataIndex: "blogSortName",
-    key: "blogSortName",
+    dataIndex: "blogSortList",
+    key: "blogSortList",
   },
   {
     title: "标签",
-    dataIndex: "tagName",
+    dataIndex: "tagList",
     width: "10%",
-    key: "tagName",
+    key: "tagList",
   },
   {
     title: "推荐等级",
@@ -150,7 +158,7 @@ export const columns = [
     width: "15%",
   },
   {
-    title: "Action",
+    title: "操作",
     key: "operation",
     fixed: "right",
     width: 100,

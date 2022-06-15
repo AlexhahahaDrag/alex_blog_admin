@@ -7,7 +7,7 @@
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-form-item label="博客名">
               <a-input
-                style="width: 140px; margin: 0px 5px 0px 5px"
+                style="width: 140px; margin: 5px 5px 0px 5px"
                 v-model:value="searchInfo.keyword"
                 placeholder="请输入博客名"
                 allow-clear
@@ -18,12 +18,13 @@
             <a-form-item label="分类">
               <a-select
                 v-model:value="searchInfo.sortId"
-                mode="tags"
-                style="width: 140px; margin: 0px 5px 0px 5px"
+                mode="combobox"
+                style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="请输入分类名"
-                :options="blogSortList"
-                :field-names="{ label: 'sortName', value: 'id', options: 'children' }"
+                :options="sortList"
+                :field-names="{ label: 'sortName', value: 'id' }"
               >
+                <a-select-option value="">请选择</a-select-option>
               </a-select>
             </a-form-item>
           </a-col>
@@ -33,11 +34,12 @@
                 ref="select"
                 v-model:value="searchInfo.tagId"
                 mode="combobox"
-                style="width: 140px; margin: 0px 5px 0px 5px"
+                style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="请输入标签名"
                 :field-names="{ label: 'content', value: 'id' }"
                 :options="blogTagList"
-              ></a-select>
+                ><a-select-option value="">请选择</a-select-option>
+              </a-select>
             </a-form-item>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -45,7 +47,7 @@
               <a-select
                 v-model:value="searchInfo.level"
                 mode="combobox"
-                style="width: 140px; margin: 0px 5px 0px 5px"
+                style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="推荐等级"
                 :options="levelInfo"
               >
@@ -57,7 +59,7 @@
               <a-select
                 v-model:value="searchInfo.isPublish"
                 mode="combobox"
-                style="width: 140px; margin: 0px 5px 0px 5px"
+                style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="是否发布"
                 :options="isTrueOrFalse"
               >
@@ -69,7 +71,8 @@
               <a-select
                 v-model:value="searchInfo.isOriginal"
                 mode="combobox"
-                style="width: 140px; margin: 0px 5px 0px 5px"
+                style="width: 140px; margin: 5px 5px 0px 5px"
+                select
                 placeholder="是否原创"
                 :options="isTrueOrFalse"
               >
@@ -81,7 +84,7 @@
               <a-select
                 v-model:value="searchInfo.type"
                 mode="combobox"
-                style="width: 140px; margin: 0px 5px 0px 5px"
+                style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="请输入文章类型"
                 :options="typeInfo"
               ></a-select>
@@ -92,7 +95,7 @@
               style="float: left; overflow: hidden"
               class="table-page-search-submitButtons"
             >
-              <a-button type="primary" style="margin: 0px 5px 0px 5px" @click="query"
+              <a-button type="primary" style="margin: 5px 5px 0px 5px" @click="query"
                 >查找</a-button
               >
             </span>
@@ -102,7 +105,7 @@
             >
               <a-button
                 type="primary"
-                style="margin: 0px 5px 0px 5px"
+                style="margin: 5px 5px 0px 5px"
                 @click="cancelQuery"
                 >清空</a-button
               >
@@ -111,13 +114,13 @@
         </a-row>
         <a-row>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-button type="primary" style="margin: 0px 5px 0px 5px">本地导入</a-button>
+            <a-button type="primary" style="margin: 5px 50px 0px 5px">本地导入</a-button>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-button type="primary" style="margin: 0px 5px 0px 5px">导出选中</a-button>
+            <a-button type="primary" style="margin: 5px 50px 0px 5px">导出选中</a-button>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
-            <a-button type="primary" style="margin: 0px 5px 0px 5px">删除选中</a-button>
+            <a-button type="primary" style="margin: 5px 5px 0px 5px">删除选中</a-button>
           </a-col>
         </a-row>
       </a-form>
@@ -132,9 +135,39 @@
         @change="handleTableChange"
         :scroll="{ x: 1500 }"
       >
-        <template #bodyCell="{ column }">
+        <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'operation'">
-            <a>action</a>
+            <a>操作</a>
+          </template>
+          <template v-else-if="column.key === 'tagList'">
+            <span
+              v-if="
+                record.tagList && record.tagList.length > 0 && record.tagList[0] != null
+              "
+            >
+              <a-tag
+                v-for="(tag, index) in record.tagList"
+                :key="tag.id"
+                :color="colorInfo[index]"
+              >
+                {{ tag.content }}
+              </a-tag>
+            </span>
+          </template>
+          <template v-else-if="column.key === 'blogSortList'">
+            <span
+              v-if="
+                record.blogSortList && record.blogSortList.length > 0 && record.blogSortList[0] != null
+              "
+            >
+              <a-tag
+                v-for="(blogSort, index) in record.blogSortList"
+                :key="blogSort.id"
+                :color="colorInfo[index]"
+              >
+                {{ blogSort.sortName }}
+              </a-tag>
+            </span>
           </template>
         </template>
       </a-table>
@@ -156,6 +189,7 @@ import {
   isTrueOrFalse,
   levelInfo,
   typeInfo,
+  colorInfo,
 } from "./blog";
 import { blogTag } from "../blogTag/blogTag";
 import { blogSort } from "../blogSort/blogSort";
@@ -190,6 +224,12 @@ let pagination = ref<pageInfo>({
 let searchInfo = ref<search>({
   pageSize: pagination.value.pageSize,
   currentPage: pagination.value.current,
+  sortId: "",
+  tagId: "",
+  type: "",
+  isOriginal: "",
+  isPublish: "",
+  level: "",
 });
 
 let loading = ref<boolean>(false);
@@ -231,18 +271,18 @@ function handleTableChange(pagination11: pageInfo) {
 
 blogList(searchInfo.value);
 let blogTagParam = { currentPage: 1, pageSize: 500 };
-let blogTagList = ref<blogTag[]>([{id: "", content: "请选择"}]);
+let blogTagList = ref<blogTag[]>([{ id: "", content: "请选择" }]);
 getBlogTagList(blogTagParam).then((res) => {
   if (res.code == "success") {
-    blogTagList.value = res.data.records;
+    blogTagList.value = [...blogTagList.value, ...res.data.records];
   }
 });
 
 let blogSortParam = { currentPage: 1, pageSize: 500 };
-let blogSortList = ref<blogSort[]>([]);
+let sortList = ref<blogSort[]>([{ id: "", sortName: "请选择" }]);
 getBlogSortList(blogSortParam).then((res) => {
   if (res.code == "success") {
-    blogSortList.value = res.data.records;
+    sortList.value = [...sortList.value, ...res.data.records];
   }
 });
 </script>

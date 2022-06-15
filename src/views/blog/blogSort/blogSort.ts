@@ -1,4 +1,6 @@
 export interface blogSort {
   id?: string,
-  title?: string,
+  sortName?: string,
 }
+
+export const blogSort = "";

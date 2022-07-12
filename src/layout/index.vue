@@ -43,7 +43,7 @@ watch(
 <style>
 #components-layout-demo-side .logo {
   height: 32px;
-  margin: 256px;
+  margin: 206px;
   background: rgba(255, 255, 255, 0.3);
 }
 

@@ -1,6 +1,5 @@
 <template>
   <div class="app-container">
-    <h1>blog</h1>
     <div class="table-page-search-wrapper" style="margin: 10px 0 10px 0">
       <a-form layout="inline" @keyup.enter.native="searchInfo">
         <a-row :gutter="24">
@@ -22,6 +21,7 @@
                 style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="请输入分类名"
                 :options="sortList"
+                :allowClear="true"
                 :field-names="{ label: 'sortName', value: 'id' }"
               >
                 <a-select-option value="">请选择</a-select-option>
@@ -38,6 +38,7 @@
                 placeholder="请输入标签名"
                 :field-names="{ label: 'content', value: 'id' }"
                 :options="blogTagList"
+                :allowClear="true"
                 ><a-select-option value="">请选择</a-select-option>
               </a-select>
             </a-form-item>
@@ -50,6 +51,7 @@
                 style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="推荐等级"
                 :options="levelInfo"
+                :allowClear="true"
               >
               </a-select>
             </a-form-item>
@@ -62,6 +64,7 @@
                 style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="是否发布"
                 :options="isTrueOrFalse"
+                :allowClear="true"
               >
               </a-select>
             </a-form-item>
@@ -75,6 +78,7 @@
                 select
                 placeholder="是否原创"
                 :options="isTrueOrFalse"
+                :allowClear="true"
               >
               </a-select>
             </a-form-item>
@@ -87,6 +91,7 @@
                 style="width: 140px; margin: 5px 5px 0px 5px"
                 placeholder="请输入文章类型"
                 :options="typeInfo"
+                :allowClear="true"
               ></a-select>
             </a-form-item>
           </a-col>
@@ -114,6 +119,9 @@
         </a-row>
         <a-row>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
+            <a-button type="primary" style="margin: 5px 50px 0px 5px">添加博客</a-button>
+          </a-col>
+          <a-col :xl="6" :lg="7" :md="8" :sm="24">
             <a-button type="primary" style="margin: 5px 50px 0px 5px">本地导入</a-button>
           </a-col>
           <a-col :xl="6" :lg="7" :md="8" :sm="24">
@@ -137,7 +145,17 @@
       >
         <template #bodyCell="{ column, record }">
           <template v-if="column.key === 'operation'">
-            <a>操作</a>
+            <a-popconfirm
+              title="确认删除博客?"
+              ok-text="确认"
+              cancel-text="取消"
+              @confirm="confirm(record.id)"
+              @cancel="cancel"
+            >
+              <a href="#">删除</a>
+            </a-popconfirm>
+            <!-- <a-button type="primary" size="small">修改</a-button> -->
+            <span></span>
           </template>
           <template v-else-if="column.key === 'tagList'">
             <span
@@ -157,7 +175,9 @@
           <template v-else-if="column.key === 'blogSortList'">
             <span
               v-if="
-                record.blogSortList && record.blogSortList.length > 0 && record.blogSortList[0] != null
+                record.blogSortList &&
+                record.blogSortList.length > 0 &&
+                record.blogSortList[0] != null
               "
             >
               <a-tag
@@ -169,6 +189,35 @@
               </a-tag>
             </span>
           </template>
+          <template v-else-if="column.key === 'isOriginal'">
+            <a-tag :key="record.isOriginal" :color="record.isOriginal ? 'red' : 'green'">
+              {{ record.isOriginal ? "原创" : "转载" }}
+            </a-tag>
+          </template>
+          <template v-else-if="column.key === 'openComment'">
+            <a-tag
+              :key="record.openComment"
+              :color="record.openComment ? 'green' : 'red'"
+            >
+              {{ record.openComment ? "开启" : "关闭" }}
+            </a-tag>
+          </template>
+          <template v-else-if="column.key === 'isPublish'">
+            <a-tag :key="record.isPublish" :color="record.isPublish ? 'green' : 'grey'">
+              {{ record.isPublish ? "发布" : "下架" }}
+            </a-tag>
+          </template>
+          <template v-else-if="column.key === 'level'">
+            <div v-for="(level, index) in levelInfo">
+              <a-tag
+                v-if="record.level == level.value && level.value !== ''"
+                :key="level"
+                :color="colorInfo[index]"
+              >
+                {{ level.label }}
+              </a-tag>
+            </div>
+          </template>
         </template>
       </a-table>
     </div>
@@ -177,10 +226,10 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
-import { getBlogList } from "@/api/blog/blog";
+import { getBlogList, deleteBlogById } from "@/api/blog/blog";
 import { getBlogTagList } from "@/api/blog/blogTag";
 import { getBlogSortList } from "@/api/blog/blogSort";
-import { notification } from "ant-design-vue";
+import { notification, message } from "ant-design-vue";
 import {
   search,
   columns,
@@ -263,9 +312,9 @@ function cancelQuery() {
   searchInfo.value = {};
 }
 
-function handleTableChange(pagination11: pageInfo) {
-  searchInfo.value.currentPage = pagination11.current;
-  searchInfo.value.pageSize = pagination11.pageSize;
+function handleTableChange(pagination: pageInfo) {
+  searchInfo.value.currentPage = pagination.current;
+  searchInfo.value.pageSize = pagination.pageSize;
   blogList(searchInfo.value);
 }
 
@@ -285,6 +334,20 @@ getBlogSortList(blogSortParam).then((res) => {
     sortList.value = [...sortList.value, ...res.data.records];
   }
 });
+const confirm = (id: number) => {
+  deleteBlogById(id).then((res) => {
+    if (res.code == "success") {
+      message.success(res.message);
+      blogList(searchInfo.value);
+    } else {
+      message.error(res.message);
+    }
+  });
+};
+
+const cancel = (e: MouseEvent) => {
+  console.log(e);
+};
 </script>
 
 <style>

@@ -61,6 +61,12 @@ export const isTrueOrFalse = [
 
 export const columns = [
   {
+    title: "是否原创",
+    dataIndex: "isOriginal",
+    key: "isOriginal",
+    align: "center",
+  },
+  {
     title: "标题图",
     dataIndex: "fileId",
     key: "fileId",
@@ -70,7 +76,7 @@ export const columns = [
   {
     title: "标题",
     dataIndex: "title",
-    width: "20%",
+    width: "12%",
     key: "title",
     ellipsis: true,
   },
@@ -80,20 +86,6 @@ export const columns = [
     key: "author",
   },
   {
-    title: "是否原创",
-    dataIndex: "isOriginal",
-    key: "isOriginal",
-    customRender: (text: any) => {
-      let res: string = "否";
-      isTrueOrFalse.forEach((item) => {
-        if (item.value == text.text) {
-          res = item.label;
-        }
-      });
-      return res;
-    },
-  },
-  {
     title: "分类",
     dataIndex: "blogSortList",
     key: "blogSortList",
@@ -101,55 +93,32 @@ export const columns = [
   {
     title: "标签",
     dataIndex: "tagList",
-    width: "10%",
+    width: "12%",
     key: "tagList",
   },
   {
     title: "推荐等级",
     dataIndex: "level",
     key: "level",
-    customRender: (text: any) => {
-      let res: string = "否";
-      levelInfo.forEach((item) => {
-        if (item.value == text.text) {
-          res = item.label;
-        }
-      });
-      return res;
-    },
+    align: "center",
   },
   {
     title: "点击数",
     dataIndex: "clickCount",
     key: "clickCount",
+    align: "center",
   },
   {
     title: "开启评论",
     dataIndex: "openComment",
     key: "openComment",
-    customRender: (text: any) => {
-      let res: string = "否";
-      isTrueOrFalse.forEach((item) => {
-        if (item.value == text.text) {
-          res = item.label;
-        }
-      });
-      return res;
-    },
+    align: "center",
   },
   {
     title: "发布状态",
     dataIndex: "isPublish",
     key: "isPublish",
-    customRender: (text: any) => {
-      let res: string = "否";
-      isTrueOrFalse.forEach((item) => {
-        if (item.value == text.text) {
-          res = item.label;
-        }
-      });
-      return res;
-    },
+    align: "center",
   },
   {
     title: "操作时间",
@@ -161,6 +130,6 @@ export const columns = [
     title: "操作",
     key: "operation",
     fixed: "right",
-    width: 100,
+    width: 200,
   },
 ];
